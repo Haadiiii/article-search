@@ -1,0 +1,40 @@
+  <nav
+  class="navbar navbar-expand-lg navbar-light d-flex justify-content-end mr-5">
+    <%= button_to "LogOut", destroy_user_session_path, class: "btn btn-danger", method: :delete %>
+</nav>
+<div class="container my-5">
+<%= search_form_for @q do |f| %>
+    <%= f.search_field :query_cont, class: "form-control form-control-lg
+    ", placeholder: "Search"
+     %>
+     <% end %>
+<ul>
+  <div class="container my-5">
+  <h1>Articles</h1>
+  <table class="table">
+    <tbody>
+      <% @search_queries.each do |query, count| %>
+        <tr>
+          <td><%= query.query %></td>
+          <td>                       
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</ul>
+  <div class="container my-5">
+  <h1
+  id="analytics-per-user"
+  >Analytics per User</h1>
+
+      <%= column_chart @search_events.map { |properties, count| [properties["query"], count] } %>
+  </div>
+
+    <div class="container my-5">
+  <h1
+  id="all-analytics">All Analytics</h1>
+
+      <%= column_chart @search_all_events.map { |properties, count| [properties["query"], count] } %>
+  </div>
